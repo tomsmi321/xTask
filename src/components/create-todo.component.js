@@ -1,5 +1,6 @@
 // import component from react
 import React, { Component } from 'react';
+import axios from 'axios';
 
 // create CreateTodo component
 class CreateTodo extends Component {
@@ -46,6 +47,18 @@ class CreateTodo extends Component {
         console.log(`todo_assigned: ${this.state.todo_assigned}`);
         console.log(`todo_priority: ${this.state.todo_priority}`);
         console.log(`todo_completed: ${this.state.todo_completed}`);
+
+        // create the new todo object
+        const newTodo = {
+            todo_description: this.state.todo_description,
+            todo_assigned: this.state.todo_assigned,
+            todo_priority: this.state.todo_priority,
+            todo_completed: this.state.todo_completed
+        }
+
+        // send a post req to the backend passing in the newTodo
+        axios.post('http://localhost:5000/todos', newTodo)
+            .then(res => console.log(res.data));
 
         // when the user presses submit we want to display a new clear form
         this.setState({
